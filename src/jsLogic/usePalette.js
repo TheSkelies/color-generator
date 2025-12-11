@@ -148,7 +148,13 @@ export function usePalette() {
         const colors = [];
         const base = baseColor.value;
 
-        for (let i = 0; i < colorCount.value; i++) {
+        colors.push({
+            hex: hslToHex(base.h, base.s, base.l),
+            rgb: hslToRgb(base.h, base.s, base.l),
+            hsl: { h: base.h, s: base.s, l: base.l }
+        });
+
+        for (let i = 1; i < colorCount.value; i++) {
             const hue = (base.h + i * 30) % 360;
             const saturation = Math.max(30, Math.min(80, base.s + (i % 3) * 10));
             const lightness = Math.max(20, Math.min(80, base.l + (i % 2) * 15));
@@ -157,6 +163,23 @@ export function usePalette() {
                 hex: hslToHex(hue, saturation, lightness),
                 rgb: hslToRgb(hue, saturation, lightness),
                 hsl: { h: hue, s: saturation, l: lightness }
+            });
+        }
+        currentColors.value = colors;
+    };
+
+
+    const generateRandomPalette = () => {
+        const colors = [];
+
+        for (let i = 0; i < colorCount.value; i++) {
+
+            const base = generateRandomHSL();
+
+            colors.push({
+                hex: hslToHex(base.h, base.s, base.l),
+                rgb: hslToRgb(base.h, base.s, base.l),
+                hsl: { h: base.h, s: base.s, l: base.l }
             });
         }
         currentColors.value = colors;
@@ -185,15 +208,15 @@ export function usePalette() {
             colors: [...currentColors.value],
             date: new Date()
         });
-        persist();
+        saveToLocalStorage();
     };
 
     const deletePalette = (i) => {
         savedPalettes.value.splice(i, 1);
-        persist();
+        saveToLocalStorage();
     };
 
-    const persist = () => {
+    const saveToLocalStorage = () => {
         localStorage.setItem(
             "colorPalettes",
             JSON.stringify({
@@ -227,10 +250,10 @@ export function usePalette() {
 
     watch(isDarkTheme, () => {
         applyTheme();
-        persist();
+        saveToLocalStorage();
     }, { immediate: false });
 
-    watch([savedPalettes, pinnedColors, colorFormat, baseColorHex], persist, {
+    watch([savedPalettes, pinnedColors, colorFormat, baseColorHex], saveToLocalStorage, {
         deep: true
     });
 
@@ -249,6 +272,7 @@ export function usePalette() {
         savePalette,
         deletePalette,
         generatePaletteOnBaseColor,
-        baseColorHex
+        baseColorHex,
+        generateRandomPalette
     };
 }

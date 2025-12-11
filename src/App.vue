@@ -19,16 +19,7 @@
       </button>
 
 
-      <button class="nav-button"
-              @click="isDarkTheme = false"
-              :class="{ active: isDarkTheme === false }">
-        ☀️ Светлая
-      </button>
-      <button class="nav-button"
-              @click="isDarkTheme = true"
-              :class="{ active: isDarkTheme === true }">
-        🌙 Тёмная
-      </button>
+
     </nav>
 
     <main class="main-content">
@@ -47,7 +38,7 @@
 import { ref } from "vue";
 import PaletteGenerator from "./components/PaletteGenerator.vue";
 import SavedPalettes from "./components/SavedPalettes.vue";
-import { usePalette } from "./composables/usePalette";
+import { usePalette } from "@/jsLogic/usePalette";
 
 const currentExample = ref("generator");
 const { isDarkTheme } = usePalette();

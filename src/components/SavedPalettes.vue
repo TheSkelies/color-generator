@@ -33,7 +33,7 @@
 
 <script setup>
 import ColorCard from "./ColorCard.vue";
-import { usePalette } from "../composables/usePalette";
+import { usePalette } from "@/jsLogic/usePalette";
 
 const {
   savedPalettes,

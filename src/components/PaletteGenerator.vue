@@ -21,6 +21,11 @@
 
 
       <button class="generate-btn" @click="generatePalette">
+        Создать градиент
+      </button>
+
+
+      <button class="generate-btn" @click="generateRandomPalette">
         🎲 Случайная палитра
       </button>
 
@@ -43,6 +48,19 @@
               @click="savePalette"
               :disabled="!currentColors.length">
         💾 Сохранить палитру
+      </button>
+    </div>
+
+    <div>
+      <button class="nav-button"
+              @click="isDarkTheme = false"
+              :class="{ active: isDarkTheme === false }">
+        ☀️ Светлая
+      </button>
+      <button class="nav-button"
+              @click="isDarkTheme = true"
+              :class="{ active: isDarkTheme === true }">
+        🌙 Тёмная
       </button>
     </div>
 
@@ -79,7 +97,7 @@
 
 <script setup>
 import ColorCard from "./ColorCard.vue";
-import { usePalette } from "../composables/usePalette";
+import { usePalette } from "@/jsLogic/usePalette";
 
 const {
   colorCount,
@@ -93,11 +111,8 @@ const {
   unpinColor,
   savePalette,
   generatePaletteOnBaseColor,
-  baseColorHex
+  baseColorHex,
+  generateRandomPalette,
+    isDarkTheme,
 } = usePalette();
-
-
-
-
-
 </script>
