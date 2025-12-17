@@ -194,6 +194,10 @@ export function usePalette() {
         setTimeout(() => (showNotification.value = false), 2000);
     };
 
+
+
+
+
     const pinColor = (color) => {
         if (!pinnedColors.value.some((c) => c.hex === color.hex)) {
             pinnedColors.value.push({ ...color });

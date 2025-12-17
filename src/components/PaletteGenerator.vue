@@ -49,6 +49,9 @@
               :disabled="!currentColors.length">
         💾 Сохранить палитру
       </button>
+
+
+
     </div>
 
     <div>
@@ -113,6 +116,6 @@ const {
   generatePaletteOnBaseColor,
   baseColorHex,
   generateRandomPalette,
-    isDarkTheme,
+  isDarkTheme,
 } = usePalette();
 </script>
